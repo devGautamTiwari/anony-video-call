@@ -1,13 +1,106 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer base {
+	html,
+	body,
+	#root,
+	#root > div {
+		height: 100%;
+	}
+
+	body {
+		overflow-y: hidden;
+	}
+}
+@layer components {
+	.button {
+		@apply w-full py-4 lg:py-6 px-2 uppercase tracking-[0.2em] text-lg md:text-xl font-bold rounded-sm active:scale-[0.98];
+	}
+
+	.video-grid {
+		display: flex;
+		height: 100%;
+		max-height: 70vh;
+		position: relative;
+	}
+
+	.video-grid > * {
+		width: 50%;
+	}
+	.video--own {
+		/* width: 80%; */
+	}
+	.video-grid video {
+		object-fit: cover;
+	}
+	@media (max-width: 600px) {
+		.video-grid {
+			height: auto;
+			/* max-height: 75vh; */
+		}
+		.video-grid > * {
+			width: 100%;
+		}
+		.video--own {
+			position: absolute;
+			top: 0;
+			left: 0;
+			margin: 1rem;
+			width: calc(40px + 15vw);
+			height: calc(40px + 15vw);
+			border-radius: 9999px;
+			box-shadow: 0px 8px 24px -8px rgba(0, 0, 0, 0.25);
+		}
+	}
+	.chat-area {
+		display: flex;
+		flex-direction: column;
+		overflow: auto;
+		height: 100%;
+		@apply bg-white py-2 border rounded-md;
+	}
+	.chat-area > * {
+		@apply px-4;
+	}
+
+	.chat-messages {
+		overflow-y: auto;
+		margin-bottom: 1rem;
+	}
+
+	.chat-messages > * + * {
+		margin-top: 0.25rem;
+	}
+
+	.message {
+		display: flex;
+		flex-direction: column;
+		width: fit-content;
+		@apply px-3 py-1 rounded-md bg-neutral-200;
+	}
+
+	.message--own {
+		margin-left: auto;
+		@apply bg-blue-700 text-white;
+	}
+	.message + .message--own,
+	.message--own + .message {
+		margin-top: 1rem;
+	}
+	.chat-footer {
+		display: flex;
+		gap: 0.5rem;
+		margin-top: auto;
+	}
+
+	.chat-input {
+		flex-grow: 1;
+		@apply border border-2 border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:border-blue-500;
+	}
+
+	.chat-send {
+		@apply py-2 px-4 rounded-md bg-blue-500 text-white font-semibold hover:bg-blue-600;
+	}
 }
